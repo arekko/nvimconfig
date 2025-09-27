@@ -21,11 +21,24 @@ map("n", "<C-l>", "<C-w><C-l>") -- ➡️ Right
 map("n", "<c-s>", "<cmd>vsplit<CR>")
 map("n", "<c-s><c-h>", "<cmd>split<CR>")
 
--- Keymap for Telescope Harpoon marks
-map("n", "<leader>m", "<cmd>Telescope harpoon marks<CR>")
+-- Plugin keybindings
 
--- Bookmarks
+-- Keymap for Telescope Harpoon marks
 --
-vim.keymap.set("n", "<leader>bm", "<cmd>BookmarksMark<cr>", { desc = "Bookmark Mark / Toggle" })
+vim.keymap.set("n", "<leader>bc", "<cmd>BookmarksMark<cr>", { desc = "Bookmark Mark / Toggle" })
 vim.keymap.set("n", "<leader>bl", "<cmd>BookmarksLists<cr>", { desc = "Bookmark Lists" })
 vim.keymap.set("n", "<leader>bj", "<cmd>BookmarksGoto<cr>", { desc = "Jump to Bookmark" })
+
+--- NeoTree keybindings
+vim.keymap.set(
+	"n",
+	"<leader>1",
+	"<cmd>Neotree left reveal toggle<CR>",
+	{ desc = "Open sidebar navigation tree", noremap = true, silent = true }
+)
+vim.keymap.set(
+	"n",
+	"<leader>e",
+	"<cmd>Neotree float reveal toggle<CR>",
+	{ desc = "Open float navigation tree", noremap = true, silent = true }
+)

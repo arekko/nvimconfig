@@ -7,14 +7,17 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
+		--		cmd = "Neotree",
 		opts = {
 			-- fill any relevant options here
+			filesystem = {
+				-- stop auto-opening when starting in a directory or using :Ex
+				follow_current_file = { enabled = true },
+				-- hijack_netrw_behavior = "disabled",
+			},
+			window = { position = "float" },
+			-- closes Neo-tree if it would be the last window
+			close_if_last_window = true,
 		},
-		config = function()
-			-- Mappings
-			--
-			vim.keymap.set("n", "<leader>1", "<cmd>Neotree left reveal toggle<CR>", { noremap = true, silent = true })
-			vim.keymap.set("n", "<leader>e", "<cmd>Neotree float reveal toggle<CR>", { noremap = true, silent = true })
-		end,
 	},
 }
