@@ -9,6 +9,9 @@ return {
 					rust = { "rustfmt", lsp_format = "fallback" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
+					typescriptreact = { "prettierd", "prettier" },
+					javascriptreact = { "prettierd", "prettier" },
+					c = { "clang-format" },
 				},
 			})
 

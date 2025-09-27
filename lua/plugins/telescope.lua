@@ -4,7 +4,9 @@ return {
 		tag = "0.1.8",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
+			local actions = require("telescope.actions")
 			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("harpoon")
 			require("telescope").setup({
 				defaults = {
 					vimgrep_arguments = vimgrep_arguments,
@@ -12,6 +14,11 @@ return {
 						i = {
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
+							["<C-d>"] = actions.delete_buffer, -- delete buffer with Ctrl-d
+						},
+						n = {
+							-- In normal mode
+							["dd"] = actions.delete_buffer, -- delete buffer with dd
 						},
 					},
 				},

@@ -3,8 +3,8 @@ return {
 		"neovim/nvim-lspconfig",
 		config = function()
 			local lspconfig = require("lspconfig")
-			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("")
+			-- vim.lsp.enable("lua_ls")
+			-- vim.lsp.enable("")
 		end,
 	},
 
@@ -23,7 +23,7 @@ return {
 					local telescope = require("telescope.builtin")
 					vim.keymap.set("n", "gd", telescope.lsp_definitions, opts)
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "<leader>vws", telescope.lsp_workspace_symbols, opts)
+					vim.keymap.set("n", "<leader>vs", telescope.lsp_workspace_symbols, opts)
 					vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
 					vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
 					vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)

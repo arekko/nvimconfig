@@ -58,3 +58,11 @@ vim.opt.guifont = { "losevka", ":h24" }
 
 o.tabstop = 4
 o.shiftwidth = 4
+
+vim.diagnostic.config({
+	virtual_text = true, -- enable inline error/warning text
+	signs = true, -- show signs in gutter
+	underline = true, -- underline offending code
+	update_in_insert = false,
+	severity_sort = true,
+})
