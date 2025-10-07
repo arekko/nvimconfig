@@ -1,5 +1,12 @@
 return {
 	-- {
+	-- 	"askfiy/visual_studio_code",
+	-- 	priority = 100,
+	-- 	config = function()
+	-- 		vim.cmd([[colorscheme visual_studio_code]])
+	-- 	end,
+	-- },
+	-- {
 	-- 	"projekt0n/github-nvim-theme",
 	-- 	name = "github-theme",
 	-- 	lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -17,7 +24,9 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		config = function()
-			require("catppuccin").setup()
+			require("catppuccin").setup({
+				no_italic = true,
+			})
 			vim.cmd("colorscheme catppuccin")
 		end,
 	},

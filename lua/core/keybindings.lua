@@ -29,6 +29,15 @@ vim.keymap.set("n", "<leader>bc", "<cmd>BookmarksMark<cr>", { desc = "Bookmark M
 vim.keymap.set("n", "<leader>bl", "<cmd>BookmarksLists<cr>", { desc = "Bookmark Lists" })
 vim.keymap.set("n", "<leader>bj", "<cmd>BookmarksGoto<cr>", { desc = "Jump to Bookmark" })
 
+--- Telescope Harpoon
+---
+vim.keymap.set(
+	"n",
+	"<leader>hl",
+	"<cmd>Telescope harpoon marks<CR>",
+	{ desc = "Open sidebar navigation tree", noremap = true, silent = true }
+)
+
 --- NeoTree keybindings
 vim.keymap.set(
 	"n",
