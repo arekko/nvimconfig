@@ -9,16 +9,30 @@ return {
 			require("telescope").load_extension("harpoon")
 			require("telescope").setup({
 				defaults = {
+
+					layout_strategy = "vertical",
+					layout_config = {
+						width = 0.5,
+						height = 0.95,
+					},
+
 					vimgrep_arguments = vimgrep_arguments,
 					mappings = {
 						i = {
 							["<C-j>"] = "move_selection_next",
 							["<C-k>"] = "move_selection_previous",
-							["<C-d>"] = actions.delete_buffer, -- delete buffer with Ctrl-d
 						},
-						n = {
-							-- In normal mode
-							["dd"] = actions.delete_buffer, -- delete buffer with dd
+					},
+				},
+				pickers = {
+					buffers = {
+						mappings = {
+							i = {
+								["<C-d>"] = actions.delete_buffer,
+							},
+							n = {
+								["dd"] = actions.delete_buffer,
+							},
 						},
 					},
 				},

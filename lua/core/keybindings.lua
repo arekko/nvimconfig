@@ -1,25 +1,25 @@
-local function map(m, k, v)
-	vim.keymap.set(m, k, v, { silent = true, noremap = true })
+local function map(m, k, v, desc)
+	vim.keymap.set(m, k, v, { silent = true, noremap = true, desc = desc })
 end
 
 -- Remap switching to normal mode
-map("i", "jj", "<Esc>")
+map("i", "jj", "<Esc>", "Exit insert mode")
 
 -- Remap saving buffer to cmd + s
-map("n", "<D-s>", ":w<CR>")
-map("i", "<D-s>", "<Esc>:w<CR>a")
+map("n", "<D-s>", ":w<CR>", "Save buffer")
+map("i", "<D-s>", "<Esc>:w<CR>a", "Save buffer")
 
 -- Split navigation
 --
-map("n", "<C-h>", "<C-w><C-h>") -- ⬅️ Left
-map("n", "<C-j>", "<C-w><C-j>") -- ⬇️ Down
-map("n", "<C-k>", "<C-w><C-k>") -- ⬆️ Up
-map("n", "<C-l>", "<C-w><C-l>") -- ➡️ Right
+map("n", "<C-h>", "<C-w><C-h>", "Navigate to left split") -- ⬅️ Left
+map("n", "<C-j>", "<C-w><C-j>", "Navigate to bottom split") -- ⬇️ Down
+map("n", "<C-k>", "<C-w><C-k>", "Navigate to top split") -- ⬆️ Up
+map("n", "<C-l>", "<C-w><C-l>", "Navigate to right split") -- ➡️ Right
 
 -- Split
 --
-map("n", "<c-s>", "<cmd>vsplit<CR>")
-map("n", "<c-s><c-h>", "<cmd>split<CR>")
+map("n", "<c-s>", "<cmd>vsplit<CR>", "Vertical split")
+map("n", "<c-s><c-h>", "<cmd>split<CR>", "Horizontal split")
 
 -- Plugin keybindings
 
