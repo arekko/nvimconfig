@@ -59,6 +59,8 @@ vim.opt.guifont = { "losevka", ":h24" }
 o.tabstop = 4
 o.shiftwidth = 4
 
+vim.opt.foldlevel = 1000
+
 vim.diagnostic.config({
 	virtual_text = true, -- enable inline error/warning text
 	signs = true, -- show signs in gutter

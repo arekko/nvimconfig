@@ -1,12 +1,13 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
+		tag = "v0.2.2",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local actions = require("telescope.actions")
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("harpoon")
+
 			require("telescope").setup({
 				defaults = {
 
@@ -16,7 +17,10 @@ return {
 						height = 0.95,
 					},
 
-					vimgrep_arguments = vimgrep_arguments,
+					path_display = {
+						"filename_first",
+					},
+
 					mappings = {
 						i = {
 							["<C-j>"] = "move_selection_next",
