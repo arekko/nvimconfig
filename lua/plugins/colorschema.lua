@@ -25,9 +25,10 @@ return {
 		priority = 1000,
 		config = function()
 			require("catppuccin").setup({
+				flavour = "frappe",
 				no_italic = true,
 			})
-			vim.cmd("colorscheme catppuccin-frappe")
+			vim.cmd("colorscheme catppuccin-nvim")
 		end,
 	},
 	-- {
@@ -41,42 +42,44 @@ return {
 	--
 	--
 	--{ "" }
-	-- {
-	-- 	"EdenEast/nightfox.nvim",
-	-- 	name = "dawnfox",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("nightfox").setup({
-	-- 			options = {
-	-- 				styles = {
-	-- 					comments = "NONE",
-	-- 					conditionals = "NONE",
-	-- 					constants = "NONE",
-	-- 					functions = "NONE",
-	-- 					keywords = "NONE",
-	-- 					numbers = "NONE",
-	-- 					operators = "NONE",
-	-- 					preprocs = "NONE",
-	-- 					strings = "NONE",
-	-- 					types = "NONE",
-	-- 					variables = "NONE",
-	-- 				},
-	-- 			},
-	-- 			groups = {
-	-- 				all = {
-	-- 					Italic = { style = "NONE" },
-	-- 					["@markup.italic"] = { style = "NONE" },
-	-- 					["@markup.link.url"] = { style = "underline" },
-	-- 					["@string.special.url"] = { style = "underline" },
-	-- 					["@markup.raw"] = { style = "NONE" },
-	-- 					["@tag.attribute"] = { style = "NONE" },
-	-- 					NeoTreeGitConflict = { style = "NONE" },
-	-- 					MiniStarterFooter = { style = "NONE" },
-	-- 					DashboardFooter = { style = "NONE" },
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 		vim.cmd("colorscheme dayfox")
-	-- 	end,
-	-- },
+	--[[
+	{
+		"EdenEast/nightfox.nvim",
+		name = "dawnfox",
+		priority = 1000,
+		config = function()
+			require("nightfox").setup({
+				options = {
+					styles = {
+						comments = "NONE",
+						conditionals = "NONE",
+						constants = "NONE",
+						functions = "NONE",
+						keywords = "NONE",
+						numbers = "NONE",
+						operators = "NONE",
+						preprocs = "NONE",
+						strings = "NONE",
+						types = "NONE",
+						variables = "NONE",
+					},
+				},
+				groups = {
+					all = {
+						Italic = { style = "NONE" },
+						["@markup.italic"] = { style = "NONE" },
+						["@markup.link.url"] = { style = "underline" },
+						["@string.special.url"] = { style = "underline" },
+						["@markup.raw"] = { style = "NONE" },
+						["@tag.attribute"] = { style = "NONE" },
+						NeoTreeGitConflict = { style = "NONE" },
+						MiniStarterFooter = { style = "NONE" },
+						DashboardFooter = { style = "NONE" },
+					},
+				},
+			})
+			vim.cmd("colorscheme nordfox")
+		end,
+	},
+	]]
 }

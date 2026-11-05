@@ -7,7 +7,7 @@ return {
 				width = 120,
 				buffers = {
 					colors = {
-						backroundColor = "catppuccin-mocha-dark",
+						background = "catppuccin-frappe-dark",
 					},
 				},
 			})

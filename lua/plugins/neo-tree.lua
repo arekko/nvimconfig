@@ -7,13 +7,14 @@ return {
             "nvim-tree/nvim-web-devicons",
             "MunifTanjim/nui.nvim",
         },
-        --		cmd = "Neotree",
+        cmd = "Neotree",
         opts = {
             -- fill any relevant options here
             filesystem = {
                 -- stop auto-opening when starting in a directory or using :Ex
                 follow_current_file = { enabled = true },
-                hijack_netrw_behavior = "open_default",
+                -- do not take over netrw; only open neo-tree via its mappings
+                hijack_netrw_behavior = "disabled",
             },
             window = { position = "float" },
             -- closes Neo-tree if it would be the last window
