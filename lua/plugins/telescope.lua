@@ -5,11 +5,20 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local actions = require("telescope.actions")
+			local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
+
+			table.insert(vimgrep_arguments, "--hidden")
+			table.insert(vimgrep_arguments, "--smart-case")
+			table.insert(vimgrep_arguments, "--line-number")
+			table.insert(vimgrep_arguments, "--glob")
+			table.insert(vimgrep_arguments, "!**/.git/*")
+
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("harpoon")
 
 			require("telescope").setup({
 				defaults = {
+					vimgrep_arguments = vimgrep_arguments,
 
 					layout_strategy = "vertical",
 					layout_config = {
