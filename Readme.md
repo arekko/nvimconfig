@@ -1,279 +1,130 @@
-# 🚀 Personal Neovim Configuration
+# Neovim
 
-A modern, feature-rich Neovim configuration built with [Lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager. This setup provides a powerful IDE-like experience with excellent performance and beautiful UI.
+Personal Neovim configuration for macOS, built on [lazy.nvim](https://github.com/folke/lazy.nvim).
 
-## ✨ Features
+- Catppuccin Frappé
+- Native LSP via Mason and nvim-lspconfig
+- Telescope, Treesitter, blink.cmp
+- Neo-tree lazy-loaded on demand
+- Formatting and linting on save
 
-- **🎨 Beautiful UI**: Catppuccin colorscheme with custom lualine configuration
-- **🔍 Fuzzy Finding**: Telescope integration for files, buffers, and live grep
-- **📝 LSP Support**: Full Language Server Protocol support with Mason
-- **🤖 AI Assistance**: GitHub Copilot integration
-- **🌳 File Explorer**: Neo-tree with floating window support
-- **📚 Project Navigation**: Harpoon for quick file switching
-- **🔧 Code Formatting**: Automatic formatting with Conform
-- **🐛 Debugging & Diagnostics**: Trouble integration for better error handling
-- **📖 Git Integration**: Comprehensive git support with multiple plugins
-- **⚡ Performance**: Optimized for speed with lazy loading
+## Requirements
 
-## 📦 Installation
-
-### Prerequisites
-
-- Neovim >= 0.9.0
-- Git
+- Neovim 0.12+ (required by blink.cmp)
+- Git, `make`, and a C compiler
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
-- Node.js (for LSP servers and formatters)
-- Make (for telescope-fzf-native)
+- `ripgrep` for Telescope live grep
+- Node.js for Prettier/ESLint and some language servers
 
-### Quick Setup
+## Install
 
 ```bash
-# Backup existing config (if any)
-mv ~/.config/nvim ~/.config/nvim.backup
-
-# Clone this configuration
-git clone <your-repo-url> ~/.config/nvim
-
-# Start Neovim - plugins will install automatically
+mv ~/.config/nvim ~/.config/nvim.backup  # optional
+git clone https://github.com/arekko/nvimconfig.git ~/.config/nvim
 nvim
 ```
 
-## 🎯 Key Bindings
+lazy.nvim bootstraps itself and installs plugins on first launch. Use `:Lazy` to manage plugins and `:Mason` to install language servers.
+
+## Structure
+
+```
+~/.config/nvim
+├── init.lua
+├── lazy-lock.json
+└── lua
+    ├── core
+    │   ├── settings.lua
+    │   ├── keybindings.lua
+    │   └── lazy.lua
+    └── plugins/*.lua
+```
+
+## Keymaps
+
+Leader is `Space`. Only the main custom mappings are listed.
 
 ### General
 
-| Key                 | Description      |
-| ------------------- | ---------------- |
-| `<Space>`           | Leader key       |
-| `jj`                | Exit insert mode |
-| `<D-s>` / `<Cmd-s>` | Save file        |
+| Key | Action |
+| --- | --- |
+| `jj` | Exit insert mode |
+| `<D-s>` | Save (macOS) |
+| `<C-t>` | Toggle terminal |
+| `<C-s>` / `<C-s><C-h>` | Vertical / horizontal split |
+| `<C-h>` `<C-j>` `<C-k>` `<C-l>` | Move between windows |
+| `<leader>zz` | Toggle no-neck-pain |
 
-### Window Navigation
+### Files and search
 
-| Key     | Description          |
-| ------- | -------------------- |
-| `<C-h>` | Move to left window  |
-| `<C-j>` | Move to down window  |
-| `<C-k>` | Move to up window    |
-| `<C-l>` | Move to right window |
+| Key | Action |
+| --- | --- |
+| `<leader>1` | Neo-tree (left) |
+| `<leader>e` | Neo-tree (float) |
+| `<leader>sf` | Find files |
+| `<leader>sg` | Live grep |
+| `<leader>sw` | Grep current word |
+| `<leader>sh` | Help tags |
+| `<leader>sd` | Diagnostics |
+| `<leader><space>` | Buffers |
+| `<leader>?` | Recent files |
+| `<leader>/` | Fuzzy search current buffer |
+| `<leader>hl` | Harpoon marks in Telescope |
 
-### Splits
+### Harpoon and buffers
 
-| Key          | Description      |
-| ------------ | ---------------- |
-| `<C-s>`      | Vertical split   |
-| `<C-s><C-h>` | Horizontal split |
-
-### File Explorer
-
-| Key         | Description             |
-| ----------- | ----------------------- |
-| `<leader>1` | Toggle Neo-tree sidebar |
-| `<leader>e` | Toggle Neo-tree float   |
-
-### Telescope (Fuzzy Finder)
-
-| Key               | Description              |
-| ----------------- | ------------------------ |
-| `<leader>sf`      | Find files               |
-| `<leader>sg`      | Live grep                |
-| `<leader>sw`      | Search current word      |
-| `<leader><space>` | Find buffers             |
-| `<leader>?`       | Recent files             |
-| `<leader>/`       | Search in current buffer |
+| Key | Action |
+| --- | --- |
+| `<leader>H` | Add file to Harpoon |
+| `<leader>h` | Open Harpoon menu |
+| `<leader>2`–`9` | Jump to Harpoon file (`1` is Neo-tree) |
+| `<Tab>` / `<S-Tab>` | Next / previous buffer |
+| `<leader>w` | Pick buffer to close |
+| `<C-w>` | Close other buffers |
 
 ### LSP
 
-| Key           | Description            |
-| ------------- | ---------------------- |
-| `gd`          | Go to definition       |
-| `gr`          | Go to references       |
-| `K`           | Show hover information |
-| `<leader>ca`  | Code actions           |
-| `<leader>vrn` | Rename                 |
-| `<leader>fo`  | Format code            |
-| `<leader>vh`  | Show diagnostics float |
+| Key | Action |
+| --- | --- |
+| `gd` / `gr` / `gi` | Definition / references / implementation |
+| `K` | Hover documentation |
+| `<C-h>` (insert) | Signature help |
+| `<leader>ca` | Code action |
+| `<leader>vrn` | Rename symbol |
+| `<leader>fo` | Format buffer |
+| `<leader>vd` / `<leader>vh` | Diagnostic float |
+| `[d` / `]d` | Next / previous diagnostic |
+| `<leader>vs` / `<leader>df` | Workspace / document symbols |
+| `<leader>ic` / `<leader>oc` | Incoming / outgoing calls |
 
-### Harpoon
+### Trouble
 
-| Key           | Description              |
-| ------------- | ------------------------ |
-| `<leader>H`   | Add file to harpoon      |
-| `<leader>h`   | Toggle harpoon menu      |
-| `<leader>1-9` | Jump to harpoon file 1-9 |
+| Key | Action |
+| --- | --- |
+| `<leader>qq` | Diagnostics |
+| `<leader>xX` | Buffer diagnostics |
+| `<leader>cs` | Symbols |
+| `<leader>cl` | LSP panel |
+| `<leader>xL` / `<leader>xQ` | Location / quickfix list |
 
-### Bookmarks
+## Plugins
 
-| Key          | Description      |
-| ------------ | ---------------- |
-| `<leader>bc` | Toggle bookmark  |
-| `<leader>bl` | List bookmarks   |
-| `<leader>bj` | Jump to bookmark |
+**Theme and UI** — catppuccin, lualine, bufferline, noice, nvim-notify, mini.icons, nvim-web-devicons, no-neck-pain.
 
-### Buffer Management
+**Navigation** — telescope, telescope-fzf-native, neo-tree, harpoon.
 
-| Key         | Description          |
-| ----------- | -------------------- |
-| `<Tab>`     | Next buffer          |
-| `<S-Tab>`   | Previous buffer      |
-| `<leader>w` | Pick buffer to close |
-| `<C-w>`     | Close other buffers  |
+**LSP and completion** — nvim-lspconfig, mason, mason-lspconfig, blink.cmp, LuaSnip, friendly-snippets, typescript-tools, lazydev.
 
-## 🔌 Installed Plugins
+**Parsing** — nvim-treesitter, treesitter-textobjects, treesitter-context, nvim-ts-autotag, treesitter-modules.
 
-### 🎨 UI & Themes
+**Editing and quality** — nvim-autopairs, Comment.nvim, conform.nvim, nvim-lint, trouble.nvim, which-key.
 
-- **[catppuccin/nvim](https://github.com/catppuccin/nvim)** - Beautiful, soothing pastel theme
-- **[nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)** - Blazing fast statusline
-- **[akinsho/bufferline.nvim](https://github.com/akinsho/bufferline.nvim)** - Snazzy buffer line
-- **[nvimdev/dashboard-nvim](https://github.com/nvimdev/dashboard-nvim)** - Fancy start screen
-- **[nvim-tree/nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)** - File icons
+**Git** — gitsigns, vim-fugitive, vim-flog, git-blame, gitlinker.
 
-### 🔍 Navigation & Search
+**Terminal** — toggleterm.
 
-- **[nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)** - Fuzzy finder over lists
-- **[nvim-telescope/telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim)** - FZF sorter for telescope
-- **[nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)** - Modern file explorer
-- **[ThePrimeagen/harpoon](https://github.com/ThePrimeagen/harpoon)** - Quick file navigation
-- **[ggandor/leap.nvim](https://github.com/ggandor/leap.nvim)** - Lightning-fast motions
-- **[LintaoAmons/bookmarks.nvim](https://github.com/LintaoAmons/bookmarks.nvim)** - Persistent bookmarks
+## Notes
 
-### 💻 LSP & Completion
-
-- **[neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP configurations
-- **[williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)** - LSP server manager
-- **[williamboman/mason-lspconfig.nvim](https://github.com/williamboman/mason-lspconfig.nvim)** - Mason-lspconfig bridge
-- **[saghen/blink.cmp](https://github.com/saghen/blink.cmp)** - Fast completion engine
-- **[L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip)** - Snippet engine
-- **[rafamadriz/friendly-snippets](https://github.com/rafamadriz/friendly-snippets)** - Snippet collection
-
-### 🤖 AI & Productivity
-
-- **[zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua)** - GitHub Copilot integration
-- **[folke/which-key.nvim](https://github.com/folke/which-key.nvim)** - Key binding help
-- **[windwp/nvim-autopairs](https://github.com/windwp/nvim-autopairs)** - Auto close brackets
-- **[numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim)** - Smart commenting
-
-### 🔧 Code Quality & Formatting
-
-- **[stevearc/conform.nvim](https://github.com/stevearc/conform.nvim)** - Code formatting
-- **[mfussenegger/nvim-lint](https://github.com/mfussenegger/nvim-lint)** - Linting support
-- **[folke/trouble.nvim](https://github.com/folke/trouble.nvim)** - Diagnostics list
-- **[nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** - Syntax highlighting
-
-### 🌿 Git Integration
-
-- **[lewis6991/gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)** - Git decorations
-- **[tpope/vim-fugitive](https://github.com/tpope/vim-fugitive)** - Git commands
-- **[rbong/vim-flog](https://github.com/rbong/vim-flog)** - Git branch viewer
-- **[f-person/git-blame.nvim](https://github.com/f-person/git-blame.nvim)** - Git blame information
-
-### 🔗 Terminal & Utilities
-
-- **[akinsho/toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)** - Terminal management
-- **[folke/lazydev.nvim](https://github.com/folke/lazydev.nvim)** - Development utilities
-- **[nvim-lua/plenary.nvim](https://github.com/nvim-lua/plenary.nvim)** - Lua utilities
-- **[MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim)** - UI components
-- **[echasnovski/mini.icons](https://github.com/echasnovski/mini.icons)** - Icon provider
-
-### 📚 Dependencies & Helpers
-
-- **[kkharji/sqlite.lua](https://github.com/kkharji/sqlite.lua)** - SQLite bindings
-- **[stevearc/dressing.nvim](https://github.com/stevearc/dressing.nvim)** - Better UI elements
-- **[GeorgesAlkhouri/nvim-aider](https://github.com/GeorgesAlkhouri/nvim-aider)** - AI development assistant
-
-## 📁 Configuration Structure
-
-```
-~/.config/nvim/
-├── init.lua                 # Main entry point
-├── lazy-lock.json          # Plugin version lockfile
-├── lua/
-│   ├── core/               # Core configuration
-│   │   ├── settings.lua    # Vim settings and options
-│   │   ├── keybindings.lua # Custom key mappings
-│   │   └── lazy.lua        # Lazy.nvim setup
-│   └── plugins/            # Plugin configurations
-│       ├── autopairs.lua
-│       ├── blink.lua
-│       ├── bookmarks.lua
-│       ├── bufferline.lua
-│       ├── colorschema.lua
-│       ├── conform.lua
-│       ├── copilot.lua
-│       ├── dashboard-nvim.lua
-│       ├── figitive.lua
-│       ├── gc.lua
-│       ├── git-blame.lua
-│       ├── gitsigns.lua
-│       ├── harpoon.lua
-│       ├── leap.lua
-│       ├── lsp.lua
-│       ├── lualine.lua
-│       ├── mason.lua
-│       ├── neo-tree.lua
-│       ├── nvim-lint.lua
-│       ├── telescope.lua
-│       ├── toggleterm.lua
-│       ├── treesitter.lua
-│       ├── trouble.lua
-│       └── which-key.lua
-└── README.md               # This file
-```
-
-## ⚙️ Customization
-
-### Adding New Plugins
-
-Create a new file in `lua/plugins/` or add to an existing file:
-
-```lua
-return {
-    {
-        "author/plugin-name",
-        config = function()
-            -- Plugin configuration
-        end
-    }
-}
-```
-
-### Modifying Key Bindings
-
-Edit `lua/core/keybindings.lua` to add or modify key mappings:
-
-```lua
-local function map(m, k, v)
-    vim.keymap.set(m, k, v, { silent = true, noremap = true })
-end
-
-map("n", "<your-key>", "<your-command>")
-```
-
-### Changing Colorscheme
-
-Edit `lua/plugins/colorschema.lua` to switch themes or modify the current one.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **Icons not displaying**: Install a Nerd Font and configure your terminal
-2. **LSP not working**: Run `:Mason` to install language servers
-3. **Slow startup**: Check `:Lazy profile` for plugin loading times
-4. **Key binding conflicts**: Check `:checkhealth` for conflicts
-
-### Getting Help
-
-- Use `:checkhealth` to diagnose issues
-- Check `:Lazy` for plugin status
-- Use `:WhichKey` to see available key bindings
-- Check individual plugin documentation for specific issues
-
-## 📄 License
-
-This configuration is open source and available under the MIT License.
-
----
-
-**Enjoy coding with Neovim! 🎉**
+- Conform formats on save; nvim-lint lints on save. Use `:Format` to format manually.
+- Neo-tree does not open at startup; it lazy-loads with `<leader>1` or `<leader>e`.
+- Edit options in `lua/core/settings.lua`, mappings in `lua/core/keybindings.lua`, and the theme in `lua/plugins/colorschema.lua`.
